@@ -39,7 +39,7 @@ namespace ToastBuddyLib
 		/// The location to try to show toast notifications at.  
 		/// Messages will queue up underneath as more are added.
 		/// </summary>
-		private Vector2 DisplayPosition;
+		private PositionDelegate DisplayPosition;
 
 		/// <summary>
 		/// List of the currently visible notification messages.
@@ -63,7 +63,7 @@ namespace ToastBuddyLib
 		/// <summary>
 		/// Constructs a new message display component.
 		/// </summary>
-		public ToastBuddy(Game game, string FontResource, Vector2 messagePosition, MatrixDelegate getMatrixDelegate) : base(game)
+		public ToastBuddy(Game game, string FontResource, PositionDelegate messagePosition, MatrixDelegate getMatrixDelegate) : base(game)
 		{
 			//grab those other items
 			FontName = FontResource;
@@ -81,6 +81,8 @@ namespace ToastBuddyLib
 		{
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 			FontHelper = new ShadowTextBuddy();
+			FontHelper.ShadowOffset = new Vector2(0.0f, 3.0f);
+			FontHelper.ShadowSize = 1.0f;
 			FontHelper.Font = Game.Content.Load<SpriteFont>(FontName);
 		}
 
@@ -146,7 +148,8 @@ namespace ToastBuddyLib
 				}
 
 				//The start position that messages will be displayed at!
-				Vector2 currentMessagePosition = DisplayPosition;
+				Vector2 startPos = ((null != DisplayPosition) ? DisplayPosition() : Vector2.Zero);
+				Vector2 currentMessagePosition = startPos;
 
 				spriteBatch.Begin(SpriteSortMode.Deferred, 
 				                  BlendState.NonPremultiplied,
@@ -173,8 +176,11 @@ namespace ToastBuddyLib
 						alpha = (byte)(255 * fadeOut.TotalSeconds / fadeOutTime.TotalSeconds);
 					}
 
+					//Set the shadow color
+					FontHelper.ShadowColor = new Color(0, 0, 0, alpha);
+
 					//Compute the message position.
-					currentMessagePosition.Y = DisplayPosition.Y + (message.Position * FontHelper.Font.LineSpacing);
+					currentMessagePosition.Y = startPos.Y + (message.Position * FontHelper.Font.LineSpacing);
 
 					// Draw the message text, with a drop shadow.
 					FontHelper.Write(message.TextMessage,
