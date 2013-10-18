@@ -1,8 +1,8 @@
-using System;
-using System.Collections.Generic;
+using FontBuddyLib;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using FontBuddyLib;
+using System;
+using System.Collections.Generic;
 
 namespace ToastBuddyLib
 {
