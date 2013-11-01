@@ -15,10 +15,9 @@ namespace ToastBuddyLib
 	{
 		#region Fields
 
+		// Tweakable settings control how long each message is visible.
 		private static readonly TimeSpan fadeInTime = TimeSpan.FromSeconds(0.25);
-
 		private static readonly TimeSpan showTime = TimeSpan.FromSeconds(5);
-
 		private static readonly TimeSpan fadeOutTime = TimeSpan.FromSeconds(0.5);
 
 		/// <summary>
@@ -57,8 +56,6 @@ namespace ToastBuddyLib
 		/// </summary>
 		private SpriteBatch spriteBatch;
 
-		// Tweakable settings control how long each message is visible.
-
 		#endregion //Fields
 
 		#region Initialization
@@ -83,10 +80,12 @@ namespace ToastBuddyLib
 		protected override void LoadContent()
 		{
 			spriteBatch = new SpriteBatch(GraphicsDevice);
-			FontHelper = new ShadowTextBuddy();
-			FontHelper.ShadowOffset = new Vector2(0.0f, 3.0f);
-			FontHelper.ShadowSize = 1.0f;
-			FontHelper.Font = Game.Content.Load<SpriteFont>(FontName);
+			FontHelper = new ShadowTextBuddy()
+			{
+				ShadowOffset = new Vector2(0.0f, 3.0f),
+				ShadowSize = 1.0f,
+				Font = Game.Content.Load<SpriteFont>(FontName)
+			};
 		}
 
 		#endregion //Initialization
