@@ -8,16 +8,6 @@ namespace ToastBuddyLib
 	internal class NotificationMessage
 	{
 		/// <summary>
-		/// The text of this message
-		/// </summary>
-		public string TextMessage { get; private set; }
-
-		/// <summary>
-		/// The screen position of this message
-		/// </summary>
-		public float Position { get; set; }
-
-		/// <summary>
 		/// how old is this message
 		/// </summary>
 		public TimeSpan Age;
@@ -33,5 +23,15 @@ namespace ToastBuddyLib
 			Position = yPosition;
 			Age = TimeSpan.Zero;
 		}
+
+		/// <summary>
+		/// The text of this message
+		/// </summary>
+		public string TextMessage { get; private set; }
+
+		/// <summary>
+		/// The screen position of this message
+		/// </summary>
+		public float Position { get; set; }
 	}
 }

@@ -1,8 +1,8 @@
+using System;
+using System.Collections.Generic;
 using FontBuddyLib;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
 
 namespace ToastBuddyLib
 {
@@ -15,46 +15,49 @@ namespace ToastBuddyLib
 	{
 		#region Fields
 
-		/// <summary>
-		/// The sprite batch used to write messages
-		/// </summary>
-		SpriteBatch spriteBatch;
+		private static readonly TimeSpan fadeInTime = TimeSpan.FromSeconds(0.25);
 
-		/// <summary>
-		/// The font helper used to write the text with a little shadow
-		/// </summary>
-		ShadowTextBuddy FontHelper;
+		private static readonly TimeSpan showTime = TimeSpan.FromSeconds(5);
 
-		/// <summary>
-		/// The name of the font to use.
-		/// </summary>
-		string FontName;
-
-		/// <summary>
-		/// A callback function used to get a matrix to scale/rotate toast messages
-		/// </summary>
-		private MatrixDelegate GetMatrix;
+		private static readonly TimeSpan fadeOutTime = TimeSpan.FromSeconds(0.5);
 
 		/// <summary>
 		/// The location to try to show toast notifications at.  
 		/// Messages will queue up underneath as more are added.
 		/// </summary>
-		private PositionDelegate DisplayPosition;
+		private readonly PositionDelegate DisplayPosition;
+
+		/// <summary>
+		/// The name of the font to use.
+		/// </summary>
+		private readonly string FontName;
+
+		/// <summary>
+		/// A callback function used to get a matrix to scale/rotate toast messages
+		/// </summary>
+		private readonly MatrixDelegate GetMatrix;
 
 		/// <summary>
 		/// List of the currently visible notification messages.
 		/// </summary>
-		List<NotificationMessage> messages = new List<NotificationMessage>();
+		private readonly List<NotificationMessage> messages = new List<NotificationMessage>();
 
 		/// <summary>
 		/// Coordinates threadsafe access to the message list.
 		/// </summary>
-		object syncObject = new object();
+		private readonly object syncObject = new object();
+
+		/// <summary>
+		/// The font helper used to write the text with a little shadow
+		/// </summary>
+		private ShadowTextBuddy FontHelper;
+
+		/// <summary>
+		/// The sprite batch used to write messages
+		/// </summary>
+		private SpriteBatch spriteBatch;
 
 		// Tweakable settings control how long each message is visible.
-		static readonly TimeSpan fadeInTime = TimeSpan.FromSeconds(0.25);
-		static readonly TimeSpan showTime = TimeSpan.FromSeconds(5);
-		static readonly TimeSpan fadeOutTime = TimeSpan.FromSeconds(0.5);
 
 		#endregion //Fields
 
@@ -71,7 +74,7 @@ namespace ToastBuddyLib
 			GetMatrix = getMatrixDelegate;
 
 			// Register ourselves to implement the IMessageDisplay service.
-			game.Services.AddService(typeof(IMessageDisplay), this);
+			game.Services.AddService(typeof (IMessageDisplay), this);
 		}
 
 		/// <summary>
@@ -151,12 +154,12 @@ namespace ToastBuddyLib
 				Vector2 startPos = ((null != DisplayPosition) ? DisplayPosition() : Vector2.Zero);
 				Vector2 currentMessagePosition = startPos;
 
-				spriteBatch.Begin(SpriteSortMode.Deferred, 
+				spriteBatch.Begin(SpriteSortMode.Deferred,
 				                  BlendState.NonPremultiplied,
-				                  null, 
-				                  null, 
-				                  null, 
-				                  null, 
+				                  null,
+				                  null,
+				                  null,
+				                  null,
 				                  ((null != GetMatrix) ? GetMatrix() : Matrix.Identity));
 
 				// Draw each message in turn.
