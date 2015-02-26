@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using OpenTK.Graphics.OpenGL;
 
 namespace ToastBuddyLib
 {
@@ -15,11 +16,21 @@ namespace ToastBuddyLib
 	{
 		#region Fields
 
-		// Tweakable settings control how long each message is visible.
-		private static readonly TimeSpan fadeInTime = TimeSpan.FromSeconds(0.25);
-		private static readonly TimeSpan showTime = TimeSpan.FromSeconds(5);
-		private static readonly TimeSpan fadeOutTime = TimeSpan.FromSeconds(0.5);
+		/// <summary>
+		/// deafult amount of time to fade in messages
+		/// </summary>
+		private readonly double _defaultFadeInTime = 0.25;
 
+		/// <summary>
+		/// deafult amount of time to show messages
+		/// </summary>
+		private readonly double _defaultShowTime = 5.0;
+
+		/// <summary>
+		/// default amount of time to fade out messages
+		/// </summary>
+		private readonly double _defaultFadeOutTime = 0.5;
+		
 		/// <summary>
 		/// The location to try to show toast notifications at.  
 		/// Messages will queue up underneath as more are added.
@@ -44,17 +55,28 @@ namespace ToastBuddyLib
 		/// <summary>
 		/// Coordinates threadsafe access to the message list.
 		/// </summary>
-		private readonly object syncObject = new object();
+		private readonly object _lock = new object();
+
+		#endregion //Fields
+
+		#region Properties
+
+		// Tweakable settings control how long each message is visible.
+		public TimeSpan FadeInTime { get; set; }
+		public TimeSpan ShowTime { get; set; }
+		public TimeSpan FadeOutTime { get; set; }
 
 		/// <summary>
 		/// The font helper used to write the text with a little shadow
 		/// </summary>
-		private ShadowTextBuddy FontHelper;
+		private ShadowTextBuddy FontHelper { get; set; }
 
 		/// <summary>
 		/// The sprite batch used to write messages
 		/// </summary>
-		private SpriteBatch spriteBatch;
+		private SpriteBatch spriteBatch { get; set; }
+
+		private Justify Justify { get; set; }
 
 		#endregion //Fields
 
@@ -63,12 +85,21 @@ namespace ToastBuddyLib
 		/// <summary>
 		/// Constructs a new message display component.
 		/// </summary>
-		public ToastBuddy(Game game, string FontResource, PositionDelegate messagePosition, MatrixDelegate getMatrixDelegate) : base(game)
+		public ToastBuddy(Game game, 
+			string fontResource,
+			PositionDelegate messagePosition, 
+			MatrixDelegate getMatrixDelegate, 
+			Justify justify = Justify.Right) : base(game)
 		{
 			//grab those other items
-			FontName = FontResource;
+			FontName = fontResource;
 			DisplayPosition = messagePosition;
 			GetMatrix = getMatrixDelegate;
+			Justify = justify;
+
+			FadeInTime = TimeSpan.FromSeconds(_defaultFadeInTime);
+			ShowTime = TimeSpan.FromSeconds(_defaultShowTime);
+			FadeOutTime = TimeSpan.FromSeconds(_defaultFadeOutTime);
 
 			// Register ourselves to implement the IMessageDisplay service.
 			game.Services.AddService(typeof (IMessageDisplay), this);
@@ -80,7 +111,7 @@ namespace ToastBuddyLib
 		protected override void LoadContent()
 		{
 			spriteBatch = new SpriteBatch(GraphicsDevice);
-			FontHelper = new ShadowTextBuddy()
+			FontHelper = new ShadowTextBuddy
 			{
 				ShadowOffset = new Vector2(0.0f, 3.0f),
 				ShadowSize = 1.0f,
@@ -97,7 +128,7 @@ namespace ToastBuddyLib
 		/// </summary>
 		public override void Update(GameTime gameTime)
 		{
-			lock (syncObject)
+			lock (_lock)
 			{
 				//Every message wants to be the first one in line.
 				float targetPosition = 0;
@@ -116,13 +147,13 @@ namespace ToastBuddyLib
 					// Update the age of the message.
 					message.Age += gameTime.ElapsedGameTime;
 
-					if (message.Age < showTime + fadeOutTime)
+					if (message.Age < ShowTime + FadeOutTime)
 					{
 						// This message is still alive.
 						index++;
 
 						// Any subsequent messages should be positioned below this one, unless it has started to fade out.
-						if (message.Age < showTime)
+						if (message.Age < ShowTime)
 						{
 							targetPosition++;
 						}
@@ -141,7 +172,7 @@ namespace ToastBuddyLib
 		/// </summary>
 		public override void Draw(GameTime gameTime)
 		{
-			lock (syncObject)
+			lock (_lock)
 			{
 				// Early out if there are no messages to display.
 				if (messages.Count == 0)
@@ -166,16 +197,16 @@ namespace ToastBuddyLib
 				{
 					//Compute the alpha of this message.
 					byte alpha = 255;
-					if (message.Age < fadeInTime)
+					if (message.Age < FadeInTime)
 					{
 						// Fading in.
-						alpha = (byte)(255 * message.Age.TotalSeconds / fadeInTime.TotalSeconds);
+						alpha = (byte)(255 * message.Age.TotalSeconds / FadeInTime.TotalSeconds);
 					}
-					else if (message.Age > showTime)
+					else if (message.Age > ShowTime)
 					{
 						// Fading out.
-						TimeSpan fadeOut = showTime + fadeOutTime - message.Age;
-						alpha = (byte)(255 * fadeOut.TotalSeconds / fadeOutTime.TotalSeconds);
+						TimeSpan fadeOut = ShowTime + FadeOutTime - message.Age;
+						alpha = (byte)(255 * fadeOut.TotalSeconds / FadeOutTime.TotalSeconds);
 					}
 
 					//Set the shadow color
@@ -187,7 +218,7 @@ namespace ToastBuddyLib
 					// Draw the message text, with a drop shadow.
 					FontHelper.Write(message.TextMessage,
 					                 currentMessagePosition,
-					                 Justify.Right,
+									 Justify,
 					                 1.0f,
 					                 new Color(255, 255, 0, alpha),
 					                 spriteBatch,
@@ -208,7 +239,7 @@ namespace ToastBuddyLib
 		/// <param name="message">the text message to show</param>
 		public void ShowMessage(string message)
 		{
-			lock (syncObject)
+			lock (_lock)
 			{
 				float startPosition = messages.Count;
 				messages.Add(new NotificationMessage(message, startPosition));
@@ -222,7 +253,7 @@ namespace ToastBuddyLib
 		{
 			string formattedMessage = string.Format(message, parameters);
 
-			lock (syncObject)
+			lock (_lock)
 			{
 				float startPosition = messages.Count;
 				messages.Add(new NotificationMessage(formattedMessage, startPosition));
