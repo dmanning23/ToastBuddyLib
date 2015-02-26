@@ -212,6 +212,10 @@ namespace ToastBuddyLib
 					//Set the shadow color
 					FontHelper.ShadowColor = new Color(0, 0, 0, alpha);
 
+					//set teh text color
+					var foregroundColor = message.Color;
+					foregroundColor.A = alpha;
+
 					//Compute the message position.
 					currentMessagePosition.Y = startPos.Y + (message.Position * FontHelper.Font.LineSpacing);
 
@@ -220,7 +224,7 @@ namespace ToastBuddyLib
 					                 currentMessagePosition,
 									 Justify,
 					                 1.0f,
-					                 new Color(255, 255, 0, alpha),
+									 foregroundColor,
 					                 spriteBatch,
 					                 0);
 				}
@@ -237,29 +241,30 @@ namespace ToastBuddyLib
 		/// Shows a new message.
 		/// </summary>
 		/// <param name="message">the text message to show</param>
-		public void ShowMessage(string message)
+		/// <param name="color">the color to write this message</param>
+		public void ShowMessage(string message, Color color)
 		{
 			lock (_lock)
 			{
 				float startPosition = messages.Count;
-				messages.Add(new NotificationMessage(message, startPosition));
+				messages.Add(new NotificationMessage(message, startPosition, color));
 			}
 		}
 
 		/// <summary>
 		/// Shows a new notification message with formatted text.
 		/// </summary>
-		public void ShowFormattedMessage(string message, params object[] parameters)
+		public void ShowFormattedMessage(string message, Color color, params object[] parameters)
 		{
 			string formattedMessage = string.Format(message, parameters);
 
 			lock (_lock)
 			{
 				float startPosition = messages.Count;
-				messages.Add(new NotificationMessage(formattedMessage, startPosition));
+				messages.Add(new NotificationMessage(formattedMessage, startPosition, color));
 			}
 		}
 
-		#endregion
+		#endregion //Implement IMessageDisplay
 	}
 }

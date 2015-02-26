@@ -12,8 +12,8 @@ namespace ToastBuddyLib
 	/// </summary>
 	public interface IMessageDisplay : IDrawable, IUpdateable
 	{
-		void ShowMessage(string message);
+		void ShowMessage(string message, Color color);
 
-		void ShowFormattedMessage(string message, params object[] parameters);
+		void ShowFormattedMessage(string message, Color color, params object[] parameters);
 	}
 }

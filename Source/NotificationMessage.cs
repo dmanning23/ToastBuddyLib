@@ -1,4 +1,5 @@
 using System;
+using Microsoft.Xna.Framework;
 
 namespace ToastBuddyLib
 {
@@ -7,22 +8,17 @@ namespace ToastBuddyLib
 	/// </summary>
 	internal class NotificationMessage
 	{
+		#region Properties
+
 		/// <summary>
 		/// how old is this message
 		/// </summary>
 		public TimeSpan Age;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ToastBuddyLib.NotificationMessage"/> class.
+		/// The color to write this message
 		/// </summary>
-		/// <param name="text">Text.</param>
-		/// <param name="yPosition">Y position.</param>
-		public NotificationMessage(string text, float yPosition)
-		{
-			TextMessage = text;
-			Position = yPosition;
-			Age = TimeSpan.Zero;
-		}
+		public Color Color { get; private set; }
 
 		/// <summary>
 		/// The text of this message
@@ -33,5 +29,21 @@ namespace ToastBuddyLib
 		/// The screen position of this message
 		/// </summary>
 		public float Position { get; set; }
+
+		#endregion //Properties
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ToastBuddyLib.NotificationMessage"/> class.
+		/// </summary>
+		/// <param name="text">Text.</param>
+		/// <param name="yPosition">Y position.</param>
+		/// <param name="color"></param>
+		public NotificationMessage(string text, float yPosition, Color color)
+		{
+			TextMessage = text;
+			Position = yPosition;
+			Age = TimeSpan.Zero;
+			Color = color;
+		}
 	}
 }
