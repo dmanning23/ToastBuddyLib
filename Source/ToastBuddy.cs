@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using GameTimer;
 using OpenTK.Graphics.OpenGL;
 
 namespace ToastBuddyLib
@@ -78,6 +79,8 @@ namespace ToastBuddyLib
 
 		private Justify Justify { get; set; }
 
+		private GameClock Time { get; set; }
+
 		#endregion //Fields
 
 		#region Initialization
@@ -103,6 +106,9 @@ namespace ToastBuddyLib
 
 			// Register ourselves to implement the IMessageDisplay service.
 			game.Services.AddService(typeof (IMessageDisplay), this);
+
+			Time = new GameClock();
+			Time.Start();
 		}
 
 		/// <summary>
@@ -130,6 +136,8 @@ namespace ToastBuddyLib
 		{
 			lock (_lock)
 			{
+				Time.Update(gameTime);
+
 				//Every message wants to be the first one in line.
 				float targetPosition = 0;
 
@@ -226,7 +234,7 @@ namespace ToastBuddyLib
 					                 1.0f,
 									 foregroundColor,
 					                 spriteBatch,
-					                 0);
+					                 Time);
 				}
 
 				spriteBatch.End();
