@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using GameTimer;
-using OpenTK.Graphics.OpenGL;
 
 namespace ToastBuddyLib
 {
