@@ -8,11 +8,11 @@ using GameTimer;
 namespace ToastBuddyLib
 {
 	/// <summary>
-	/// Component implements the IMessageDisplay interface. 
+	/// Component implements the IToastBuddy interface. 
 	/// This is used to show notification messages when interesting events occur, 
 	/// for instance when gamers join or leave the network session
 	/// </summary>
-	public class ToastBuddy : DrawableGameComponent, IMessageDisplay
+	public class ToastBuddy : DrawableGameComponent, IToastBuddy
 	{
 		#region Fields
 
@@ -50,7 +50,7 @@ namespace ToastBuddyLib
 		/// <summary>
 		/// List of the currently visible notification messages.
 		/// </summary>
-		private readonly List<NotificationMessage> messages = new List<NotificationMessage>();
+		private readonly List<ToastMessage> messages = new List<ToastMessage>();
 
 		/// <summary>
 		/// Coordinates threadsafe access to the message list.
@@ -103,8 +103,9 @@ namespace ToastBuddyLib
 			ShowTime = TimeSpan.FromSeconds(_defaultShowTime);
 			FadeOutTime = TimeSpan.FromSeconds(_defaultFadeOutTime);
 
-			// Register ourselves to implement the IMessageDisplay service.
-			game.Services.AddService(typeof (IMessageDisplay), this);
+			// Register ourselves to implement the IToastBuddy service.
+			game.Components.Add(this);
+			game.Services.AddService(typeof(IToastBuddy), this);
 
 			Time = new GameClock();
 			Time.Start();
@@ -144,11 +145,11 @@ namespace ToastBuddyLib
 				int index = 0;
 				while (index < messages.Count)
 				{
-					NotificationMessage message = messages[index];
+					var message = messages[index];
 
 					// Gradually slide the message toward its desired position.
-					float positionDelta = targetPosition - message.Position;
-					float velocity = (float)gameTime.ElapsedGameTime.TotalSeconds * 2;
+					var positionDelta = targetPosition - message.Position;
+					var velocity = (float)gameTime.ElapsedGameTime.TotalSeconds * 2;
 					message.Position += positionDelta * Math.Min(velocity, 1);
 
 					// Update the age of the message.
@@ -188,8 +189,8 @@ namespace ToastBuddyLib
 				}
 
 				//The start position that messages will be displayed at!
-				Vector2 startPos = ((null != DisplayPosition) ? DisplayPosition() : Vector2.Zero);
-				Vector2 currentMessagePosition = startPos;
+				var startPos = ((null != DisplayPosition) ? DisplayPosition() : Vector2.Zero);
+				var currentMessagePosition = startPos;
 
 				spriteBatch.Begin(SpriteSortMode.Deferred,
 				                  BlendState.NonPremultiplied,
@@ -200,7 +201,7 @@ namespace ToastBuddyLib
 				                  ((null != GetMatrix) ? GetMatrix() : Matrix.Identity));
 
 				// Draw each message in turn.
-				foreach (NotificationMessage message in messages)
+				foreach (var message in messages)
 				{
 					//Compute the alpha of this message.
 					byte alpha = 255;
@@ -242,7 +243,7 @@ namespace ToastBuddyLib
 
 		#endregion //Update and Draw
 
-		#region Implement IMessageDisplay
+		#region Implement IToastBuddy
 
 		/// <summary>
 		/// Shows a new message.
@@ -254,7 +255,7 @@ namespace ToastBuddyLib
 			lock (_lock)
 			{
 				float startPosition = messages.Count;
-				messages.Add(new NotificationMessage(message, startPosition, color));
+				messages.Add(new ToastMessage(message, startPosition, color));
 			}
 		}
 
@@ -263,15 +264,15 @@ namespace ToastBuddyLib
 		/// </summary>
 		public void ShowFormattedMessage(string message, Color color, params object[] parameters)
 		{
-			string formattedMessage = string.Format(message, parameters);
+			var formattedMessage = string.Format(message, parameters);
 
 			lock (_lock)
 			{
-				float startPosition = messages.Count;
-				messages.Add(new NotificationMessage(formattedMessage, startPosition, color));
+				var startPosition = messages.Count;
+				messages.Add(new ToastMessage(formattedMessage, startPosition, color));
 			}
 		}
 
-		#endregion //Implement IMessageDisplay
+		#endregion //Implement IToastBuddy
 	}
 }

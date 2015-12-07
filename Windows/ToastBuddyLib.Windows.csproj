@@ -82,15 +82,15 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Source\IToastBuddy.cs">
+      <Link>IToastBuddy.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\ToastMessage.cs">
+      <Link>ToastMessage.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\Source\ToastBuddy.cs">
       <Link>ToastBuddy.cs</Link>
-    </Compile>
-    <Compile Include="..\Source\IMessageDisplay.cs">
-      <Link>IMessageDisplay.cs</Link>
-    </Compile>
-    <Compile Include="..\Source\NotificationMessage.cs">
-      <Link>NotificationMessage.cs</Link>
     </Compile>
     <Compile Include="..\Source\MatrixDelegate.cs">
       <Link>MatrixDelegate.cs</Link>

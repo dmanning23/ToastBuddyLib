@@ -6,7 +6,7 @@ namespace ToastBuddyLib
 	/// <summary>
 	/// Helper class stores the position and text of a single notification message.
 	/// </summary>
-	internal class NotificationMessage
+	internal class ToastMessage
 	{
 		#region Properties
 
@@ -33,12 +33,12 @@ namespace ToastBuddyLib
 		#endregion //Properties
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ToastBuddyLib.NotificationMessage"/> class.
+		/// Initializes a new instance of the <see cref="ToastBuddyLib.ToastMessage"/> class.
 		/// </summary>
 		/// <param name="text">Text.</param>
 		/// <param name="yPosition">Y position.</param>
 		/// <param name="color"></param>
-		public NotificationMessage(string text, float yPosition, Color color)
+		public ToastMessage(string text, float yPosition, Color color)
 		{
 			TextMessage = text;
 			Position = yPosition;

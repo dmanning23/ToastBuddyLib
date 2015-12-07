@@ -8,9 +8,9 @@ namespace ToastBuddyLib
 	/// is registered as a service, so any piece of code wanting to display a message
 	/// can look it up from Game.Services, without needing to worry about how the
 	/// message display is implemented. In this sample, the MessageDisplayComponent
-	/// class implement this IMessageDisplay service.
+	/// class implement this IToastBuddy service.
 	/// </summary>
-	public interface IMessageDisplay : IDrawable, IUpdateable
+	public interface IToastBuddy : IDrawable, IUpdateable
 	{
 		void ShowMessage(string message, Color color);
 
