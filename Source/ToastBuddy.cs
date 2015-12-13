@@ -107,6 +107,9 @@ namespace ToastBuddyLib
 			game.Components.Add(this);
 			game.Services.AddService(typeof(IToastBuddy), this);
 
+			//draw the toastbuddy on top of everything else
+			DrawOrder = 100;
+
 			Time = new GameClock();
 			Time.Start();
 		}
