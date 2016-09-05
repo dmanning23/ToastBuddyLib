@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+	<metadata>
+		<id>ToastBuddyLib</id>
+		<version>1.0.0</version>
+		<title>ToastBuddyLib</title>
+		<authors>dmanning23</authors>
+		<owners>dmanning23</owners>
+		<projectUrl>https://github.com/dmanning23/ToastBuddyLib</projectUrl>
+		<licenseUrl>https://github.com/dmanning23/ToastBuddyLib/blob/master/LICENSE.txt</licenseUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>MonoGame library to easily show messages to the player via toast popups</description>
+		<releaseNotes />
+		<copyright>Copyright 2016</copyright>
+		<tags>pcl, windows phone, winphone, android, ios, windows universal, monogame</tags>
+		<dependencies>
+
+			<!--Xamarin.Android-->
+			<group targetFramework="MonoAndroid10">
+				<dependency id="MonoGame.Framework.Android" version="3.5"/>
+				<dependency id="FontBuddy" version="1.0.8"/>
+				<dependency id="GameTimer" version="1.0"/>
+			</group>
+
+			<!--Xamarin.iOS Unified-->
+			<group targetFramework="Xamarin.iOS10">
+				<dependency id="MonoGame.Framework.iOS" version="3.5"/>
+				<dependency id="FontBuddy" version="1.0.8"/>
+				<dependency id="GameTimer" version="1.0"/>
+			</group>
+
+			<!--Win Universal-->
+			<group targetFramework="uap10.0">
+				<dependency id="MonoGame.Framework.WindowsUniversal" version="3.5"/>
+				<dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="5.1"/>
+				<dependency id="FontBuddy" version="1.0.8"/>
+				<dependency id="GameTimer" version="1.0"/>
+			</group>
+
+			<group targetFramework="net451">
+				<dependency id="MonoGame.Framework.DesktopGL" version="3.5"/>
+				<dependency id="FontBuddy" version="1.0.8"/>
+				<dependency id="GameTimer" version="1.0"/>
+			</group>
+
+		</dependencies>
+	</metadata>
+	<files>
+
+		<!--Xamarin.Android-->
+		<file src="ToastBuddyLib.Android\bin\Release\ToastBuddyLib.Android.pdb" target="lib\MonoAndroid10\ToastBuddyLib.Android.pdb" />
+		<file src="ToastBuddyLib.Android\bin\Release\ToastBuddyLib.Android.dll" target="lib\MonoAndroid10\ToastBuddyLib.Android.dll" />
+
+		<!--Xamarin.iOS Unified-->
+		<file src="ToastBuddyLib.iOS\bin\Release\ToastBuddyLib.iOS.pdb" target="lib\Xamarin.iOS10\ToastBuddyLib.iOS.pdb" />
+		<file src="ToastBuddyLib.iOS\bin\Release\ToastBuddyLib.iOS.dll" target="lib\Xamarin.iOS10\ToastBuddyLib.iOS.dll" />
+
+		<!--Windows Universal-->
+		<file src="ToastBuddyLib.WindowsUniversal\bin\Release\ToastBuddyLib.WindowsUniversal.pdb" target="lib\uap10.0\ToastBuddyLib.WindowsUniversal.pdb" />
+		<file src="ToastBuddyLib.WindowsUniversal\bin\Release\ToastBuddyLib.WindowsUniversal.dll" target="lib\uap10.0\ToastBuddyLib.WindowsUniversal.dll" />
+
+		<!--DesktopGL-->
+		<file src="ToastBuddyLib.DesktopGL\bin\Release\ToastBuddyLib.DesktopGL.pdb" target="lib\net451\ToastBuddyLib.DesktopGL.pdb" />
+		<file src="ToastBuddyLib.DesktopGL\bin\Release\ToastBuddyLib.DesktopGL.dll" target="lib\net451\ToastBuddyLib.DesktopGL.dll" />
+
+	</files>
+</package>
