@@ -221,7 +221,7 @@ namespace ToastBuddyLib
 					}
 
 					//Set the shadow color
-					FontHelper.ShadowColor = new Color(0, 0, 0, alpha);
+					FontHelper.ShadowColor = new Color(Color.Black, alpha);
 
 					//set teh text color
 					var foregroundColor = message.Color;

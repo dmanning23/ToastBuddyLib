@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
 		<id>ToastBuddyLib</id>
-		<version>1.0.1</version>
+		<version>1.0.2</version>
 		<title>ToastBuddyLib</title>
 		<authors>dmanning23</authors>
 		<owners>dmanning23</owners>
@@ -38,7 +38,7 @@
 			</group>
 
 			<group targetFramework="net451">
-				<dependency id="MonoGame.Framework.DesktopGL" version="3.5"/>
+				<dependency id="MonoGame.Framework.WindowsDX" version="3.5"/>
 				<dependency id="FontBuddy" version="1.0.8"/>
 				<dependency id="GameTimer" version="1.0"/>
 			</group>
@@ -59,9 +59,9 @@
 		<file src="ToastBuddyLib.WindowsUniversal\bin\Release\ToastBuddyLib.WindowsUniversal.pdb" target="lib\uap10.0\ToastBuddyLib.WindowsUniversal.pdb" />
 		<file src="ToastBuddyLib.WindowsUniversal\bin\Release\ToastBuddyLib.WindowsUniversal.dll" target="lib\uap10.0\ToastBuddyLib.WindowsUniversal.dll" />
 
-		<!--DesktopGL-->
-		<file src="ToastBuddyLib.DesktopGL\bin\Release\ToastBuddyLib.DesktopGL.pdb" target="lib\net451\ToastBuddyLib.DesktopGL.pdb" />
-		<file src="ToastBuddyLib.DesktopGL\bin\Release\ToastBuddyLib.DesktopGL.dll" target="lib\net451\ToastBuddyLib.DesktopGL.dll" />
+		<!--WindowsDX-->
+		<file src="ToastBuddyLib.WindowsDX\bin\Release\ToastBuddyLib.WindowsDX.pdb" target="lib\net451\ToastBuddyLib.WindowsDX.pdb" />
+		<file src="ToastBuddyLib.WindowsDX\bin\Release\ToastBuddyLib.WindowsDX.dll" target="lib\net451\ToastBuddyLib.WindowsDX.dll" />
 
 	</files>
 </package>
