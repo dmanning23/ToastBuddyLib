@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
 		<id>ToastBuddyLib</id>
-		<version>2.0.1</version>
+		<version>2.0.2</version>
 		<title>ToastBuddyLib</title>
 		<authors>dmanning23</authors>
 		<owners>dmanning23</owners>
@@ -30,12 +30,12 @@
 			</group>
 
 			<!--Win Universal-->
-			<group targetFramework="uap10.0">
+			<!--<group targetFramework="uap10.0">
 				<dependency id="MonoGame.Framework.WindowsUniversal" version="3.7"/>
 				<dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.1"/>
 				<dependency id="FontBuddy" version="2.0"/>
 				<dependency id="GameTimer" version="2.0"/>
-			</group>
+			</group>-->
 
 			<group targetFramework="net451">
 				<dependency id="MonoGame.Framework.WindowsDX" version="3.7"/>
@@ -56,8 +56,8 @@
 		<file src="ToastBuddyLib.iOS\bin\Release\ToastBuddyLib.iOS.dll" target="lib\Xamarin.iOS10\ToastBuddyLib.iOS.dll" />
 
 		<!--Windows Universal-->
-		<file src="ToastBuddyLib.WindowsUniversal\bin\Release\ToastBuddyLib.WindowsUniversal.pdb" target="lib\uap10.0\ToastBuddyLib.WindowsUniversal.pdb" />
-		<file src="ToastBuddyLib.WindowsUniversal\bin\Release\ToastBuddyLib.WindowsUniversal.dll" target="lib\uap10.0\ToastBuddyLib.WindowsUniversal.dll" />
+		<!--<file src="ToastBuddyLib.WindowsUniversal\bin\Release\ToastBuddyLib.WindowsUniversal.pdb" target="lib\uap10.0\ToastBuddyLib.WindowsUniversal.pdb" />
+		<file src="ToastBuddyLib.WindowsUniversal\bin\Release\ToastBuddyLib.WindowsUniversal.dll" target="lib\uap10.0\ToastBuddyLib.WindowsUniversal.dll" />-->
 
 		<!--WindowsDX-->
 		<file src="ToastBuddyLib.WindowsDX\bin\Release\ToastBuddyLib.WindowsDX.pdb" target="lib\net451\ToastBuddyLib.WindowsDX.pdb" />

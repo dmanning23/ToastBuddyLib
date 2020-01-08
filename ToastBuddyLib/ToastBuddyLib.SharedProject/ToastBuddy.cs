@@ -30,7 +30,7 @@ namespace ToastBuddyLib
 		/// default amount of time to fade out messages
 		/// </summary>
 		private readonly double _defaultFadeOutTime = 0.5;
-		
+
 		/// <summary>
 		/// The location to try to show toast notifications at.  
 		/// Messages will queue up underneath as more are added.
@@ -56,6 +56,10 @@ namespace ToastBuddyLib
 		/// Coordinates threadsafe access to the message list.
 		/// </summary>
 		private readonly object _lock = new object();
+
+		private bool UseFontPlus { get; set; }
+
+		private int FontSize { get; set; }
 
 		#endregion //Fields
 
@@ -87,17 +91,21 @@ namespace ToastBuddyLib
 		/// <summary>
 		/// Constructs a new message display component.
 		/// </summary>
-		public ToastBuddy(Game game, 
+		public ToastBuddy(Game game,
 			string fontResource,
-			PositionDelegate messagePosition, 
-			MatrixDelegate getMatrixDelegate, 
-			Justify justify = Justify.Right) : base(game)
+			PositionDelegate messagePosition,
+			MatrixDelegate getMatrixDelegate,
+			Justify justify = Justify.Right,
+			bool useFontPlus = false,
+			int fontSize = 48) : base(game)
 		{
 			//grab those other items
 			FontName = fontResource;
 			DisplayPosition = messagePosition;
 			GetMatrix = getMatrixDelegate;
 			Justify = justify;
+			UseFontPlus = useFontPlus;
+			FontSize = fontSize;
 
 			FadeInTime = TimeSpan.FromSeconds(_defaultFadeInTime);
 			ShowTime = TimeSpan.FromSeconds(_defaultShowTime);
@@ -124,8 +132,9 @@ namespace ToastBuddyLib
 			{
 				ShadowOffset = new Vector2(0.0f, 3.0f),
 				ShadowSize = 1.0f,
-				Font = Game.Content.Load<SpriteFont>(FontName)
 			};
+
+			FontHelper.LoadContent(Game.Content, FontName, UseFontPlus, FontSize);
 		}
 
 		#endregion //Initialization
@@ -196,12 +205,12 @@ namespace ToastBuddyLib
 				var currentMessagePosition = startPos;
 
 				spriteBatch.Begin(SpriteSortMode.Deferred,
-				                  BlendState.NonPremultiplied,
-				                  null,
-				                  null,
-				                  null,
-				                  null,
-				                  ((null != GetMatrix) ? GetMatrix() : Matrix.Identity));
+								  BlendState.NonPremultiplied,
+								  null,
+								  null,
+								  null,
+								  null,
+								  ((null != GetMatrix) ? GetMatrix() : Matrix.Identity));
 
 				// Draw each message in turn.
 				foreach (var message in messages)
@@ -228,16 +237,16 @@ namespace ToastBuddyLib
 					foregroundColor.A = alpha;
 
 					//Compute the message position.
-					currentMessagePosition.Y = startPos.Y + (message.Position * FontHelper.Font.LineSpacing);
+					currentMessagePosition.Y = startPos.Y + (message.Position * FontHelper.MeasureString(message.TextMessage).Y);
 
 					// Draw the message text, with a drop shadow.
 					FontHelper.Write(message.TextMessage,
-					                 currentMessagePosition,
+									 currentMessagePosition,
 									 Justify,
-					                 1.0f,
+									 1.0f,
 									 foregroundColor,
-					                 spriteBatch,
-					                 Time);
+									 spriteBatch,
+									 Time);
 				}
 
 				spriteBatch.End();
