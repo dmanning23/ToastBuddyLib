@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToastBuddyLib.Android", "ToastBuddyLib.Android\ToastBuddyLib.Android.csproj", "{6E6CBAC2-FAD9-48B0-8211-AB5519582107}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToastBuddyLib.iOS", "ToastBuddyLib.iOS\ToastBuddyLib.iOS.csproj", "{FAB6E06D-1822-40E0-9F84-28B3B5311616}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToastBuddyLib.WindowsUniversal", "ToastBuddyLib.WindowsUniversal\ToastBuddyLib.WindowsUniversal.csproj", "{B2401C34-334E-4DF9-B0BF-48818A5D49FC}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ToastBuddyLib.SharedProject", "ToastBuddyLib.SharedProject\ToastBuddyLib.SharedProject.shproj", "{87AEAC20-C309-4FA2-9B12-BE0242A813CA}"
 EndProject
@@ -23,7 +21,6 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		ToastBuddyLib.SharedProject\ToastBuddyLib.SharedProject.projitems*{6e6cbac2-fad9-48b0-8211-ab5519582107}*SharedItemsImports = 4
 		ToastBuddyLib.SharedProject\ToastBuddyLib.SharedProject.projitems*{87aeac20-c309-4fa2-9b12-be0242a813ca}*SharedItemsImports = 13
-		ToastBuddyLib.SharedProject\ToastBuddyLib.SharedProject.projitems*{b2401c34-334e-4df9-b0bf-48818a5d49fc}*SharedItemsImports = 4
 		ToastBuddyLib.SharedProject\ToastBuddyLib.SharedProject.projitems*{d406b51d-a305-474e-967e-64efb962179d}*SharedItemsImports = 4
 		ToastBuddyLib.SharedProject\ToastBuddyLib.SharedProject.projitems*{fab6e06d-1822-40e0-9f84-28b3b5311616}*SharedItemsImports = 4
 	EndGlobalSection
@@ -70,22 +67,6 @@ Global
 		{FAB6E06D-1822-40E0-9F84-28B3B5311616}.Release|x64.Build.0 = Release|Any CPU
 		{FAB6E06D-1822-40E0-9F84-28B3B5311616}.Release|x86.ActiveCfg = Release|Any CPU
 		{FAB6E06D-1822-40E0-9F84-28B3B5311616}.Release|x86.Build.0 = Release|Any CPU
-		{B2401C34-334E-4DF9-B0BF-48818A5D49FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B2401C34-334E-4DF9-B0BF-48818A5D49FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B2401C34-334E-4DF9-B0BF-48818A5D49FC}.Debug|ARM.ActiveCfg = Debug|ARM
-		{B2401C34-334E-4DF9-B0BF-48818A5D49FC}.Debug|ARM.Build.0 = Debug|ARM
-		{B2401C34-334E-4DF9-B0BF-48818A5D49FC}.Debug|x64.ActiveCfg = Debug|x64
-		{B2401C34-334E-4DF9-B0BF-48818A5D49FC}.Debug|x64.Build.0 = Debug|x64
-		{B2401C34-334E-4DF9-B0BF-48818A5D49FC}.Debug|x86.ActiveCfg = Debug|x86
-		{B2401C34-334E-4DF9-B0BF-48818A5D49FC}.Debug|x86.Build.0 = Debug|x86
-		{B2401C34-334E-4DF9-B0BF-48818A5D49FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B2401C34-334E-4DF9-B0BF-48818A5D49FC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B2401C34-334E-4DF9-B0BF-48818A5D49FC}.Release|ARM.ActiveCfg = Release|ARM
-		{B2401C34-334E-4DF9-B0BF-48818A5D49FC}.Release|ARM.Build.0 = Release|ARM
-		{B2401C34-334E-4DF9-B0BF-48818A5D49FC}.Release|x64.ActiveCfg = Release|x64
-		{B2401C34-334E-4DF9-B0BF-48818A5D49FC}.Release|x64.Build.0 = Release|x64
-		{B2401C34-334E-4DF9-B0BF-48818A5D49FC}.Release|x86.ActiveCfg = Release|x86
-		{B2401C34-334E-4DF9-B0BF-48818A5D49FC}.Release|x86.Build.0 = Release|x86
 		{D406B51D-A305-474E-967E-64EFB962179D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D406B51D-A305-474E-967E-64EFB962179D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D406B51D-A305-474E-967E-64EFB962179D}.Debug|ARM.ActiveCfg = Debug|Any CPU

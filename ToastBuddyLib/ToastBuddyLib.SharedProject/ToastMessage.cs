@@ -1,4 +1,4 @@
-using System;
+using GameTimer;
 using Microsoft.Xna.Framework;
 
 namespace ToastBuddyLib
@@ -6,14 +6,16 @@ namespace ToastBuddyLib
 	/// <summary>
 	/// Helper class stores the position and text of a single notification message.
 	/// </summary>
-	internal class ToastMessage
+	public class ToastMessage
 	{
 		#region Properties
 
 		/// <summary>
 		/// how old is this message
 		/// </summary>
-		public TimeSpan Age;
+		public GameClock StateTimer { get; set; }
+
+		public ToastMessageState State { get; set; }
 
 		/// <summary>
 		/// The color to write this message
@@ -42,8 +44,16 @@ namespace ToastBuddyLib
 		{
 			TextMessage = text;
 			Position = yPosition;
-			Age = TimeSpan.Zero;
 			Color = color;
+
+			State = ToastMessageState.FadingIn;
+			StateTimer = new GameClock();
+			StateTimer.Start();
+		}
+
+		public void Update(GameClock time)
+		{
+			StateTimer.Update(time);
 		}
 	}
 }

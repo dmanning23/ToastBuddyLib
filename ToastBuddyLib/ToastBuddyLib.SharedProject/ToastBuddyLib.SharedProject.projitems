@@ -11,7 +11,10 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)IToastBuddy.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MatrixDelegate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RollingToast.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BaseToast.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ToastBuddy.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ToastMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ToastMessageState.cs" />
   </ItemGroup>
 </Project>

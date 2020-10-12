@@ -10,10 +10,10 @@ namespace ToastBuddyLib
 	/// message display is implemented. In this sample, the MessageDisplayComponent
 	/// class implement this IToastBuddy service.
 	/// </summary>
-	public interface IToastBuddy : IDrawable, IUpdateable
+	public interface IToastBuddy
 	{
-		void ShowMessage(string message, Color color);
+		ToastMessage ShowMessage(string message, Color color);
 
-		void ShowFormattedMessage(string message, Color color, params object[] parameters);
+		ToastMessage ShowFormattedMessage(string message, Color color, params object[] parameters);
 	}
 }
