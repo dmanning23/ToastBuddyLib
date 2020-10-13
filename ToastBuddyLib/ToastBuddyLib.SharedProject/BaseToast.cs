@@ -46,7 +46,7 @@ namespace ToastBuddyLib
 		/// <summary>
 		/// List of the currently visible notification messages.
 		/// </summary>
-		private readonly List<ToastMessage> messages = new List<ToastMessage>();
+		protected List<ToastMessage> Messages { get; set; } = new List<ToastMessage>();
 
 		/// <summary>
 		/// Coordinates threadsafe access to the message list.
@@ -133,9 +133,9 @@ namespace ToastBuddyLib
 
 				// Update each message in turn.
 				int index = 0;
-				while (index < messages.Count)
+				while (index < Messages.Count)
 				{
-					var message = messages[index];
+					var message = Messages[index];
 
 					// Gradually slide the message toward its desired position.
 					var positionDelta = targetPosition - message.Position;
@@ -158,7 +158,7 @@ namespace ToastBuddyLib
 					else if (message.State == ToastMessageState.Dead)
 					{
 						// This message is old, and should be removed.
-						messages.RemoveAt(index);
+						Messages.RemoveAt(index);
 					}
 				}
 			}
@@ -174,7 +174,7 @@ namespace ToastBuddyLib
 			lock (_lock)
 			{
 				// Early out if there are no messages to display.
-				if (messages.Count == 0)
+				if (Messages.Count == 0)
 				{
 					return;
 				}
@@ -192,7 +192,7 @@ namespace ToastBuddyLib
 								  ((null != GetMatrix) ? GetMatrix() : Matrix.Identity));
 
 				// Draw each message in turn.
-				foreach (var message in messages)
+				foreach (var message in Messages)
 				{
 					//Compute the alpha of this message.
 					byte alpha = 255;
@@ -245,9 +245,9 @@ namespace ToastBuddyLib
 		{
 			lock (_lock)
 			{
-				float startPosition = messages.Count;
+				float startPosition = Messages.Count;
 				var toast = new ToastMessage(message, startPosition, color);
-				messages.Add(toast);
+				Messages.Add(toast);
 				return toast;
 			}
 		}
@@ -261,9 +261,9 @@ namespace ToastBuddyLib
 
 			lock (_lock)
 			{
-				var startPosition = messages.Count;
+				var startPosition = Messages.Count;
 				var toast = new ToastMessage(formattedMessage, startPosition, color);
-				messages.Add(toast);
+				Messages.Add(toast);
 				return toast;
 			}
 		}

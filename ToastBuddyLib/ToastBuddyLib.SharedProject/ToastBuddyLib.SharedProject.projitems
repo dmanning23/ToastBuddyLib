@@ -9,6 +9,7 @@
     <Import_RootNamespace>ToastBuddyLib.SharedProject</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ClearToast.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IToastBuddy.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MatrixDelegate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RollingToast.cs" />
