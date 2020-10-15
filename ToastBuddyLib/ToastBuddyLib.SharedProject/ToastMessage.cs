@@ -20,12 +20,12 @@ namespace ToastBuddyLib
 		/// <summary>
 		/// The color to write this message
 		/// </summary>
-		public Color Color { get; private set; }
+		public Color Color { get; set; }
 
 		/// <summary>
 		/// The text of this message
 		/// </summary>
-		public string TextMessage { get; private set; }
+		public string TextMessage { get; set; }
 
 		/// <summary>
 		/// The screen position of this message
