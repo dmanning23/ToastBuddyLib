@@ -216,9 +216,6 @@ namespace ToastBuddyLib
 					var foregroundColor = message.Color;
 					foregroundColor.A = alpha;
 
-					//Compute the message position.
-					currentMessagePosition.Y = startPos.Y + (message.Position * FontHelper.MeasureString(message.TextMessage).Y);
-
 					// Draw the message text, with a drop shadow.
 					var shadowColor = Color.Black;
 					shadowColor.A = alpha;
@@ -226,10 +223,13 @@ namespace ToastBuddyLib
 					FontHelper.Write(message.TextMessage,
 									 currentMessagePosition,
 									 Justify,
-									 1.0f,
+									 message.Scale,
 									 foregroundColor,
 									 spriteBatch,
 									 Time);
+
+					//Compute the message position.
+					currentMessagePosition.Y = startPos.Y + (message.Position * (FontHelper.MeasureString(message.TextMessage).Y * message.Scale));
 				}
 
 				spriteBatch.End();
@@ -241,28 +241,12 @@ namespace ToastBuddyLib
 		/// </summary>
 		/// <param name="message">the text message to show</param>
 		/// <param name="color">the color to write this message</param>
-		public ToastMessage ShowMessage(string message, Color color)
+		public ToastMessage ShowMessage(string message, Color color, float scale = 1f)
 		{
 			lock (_lock)
 			{
 				float startPosition = Messages.Count;
-				var toast = new ToastMessage(message, startPosition, color);
-				Messages.Add(toast);
-				return toast;
-			}
-		}
-
-		/// <summary>
-		/// Shows a new notification message with formatted text.
-		/// </summary>
-		public ToastMessage ShowFormattedMessage(string message, Color color, params object[] parameters)
-		{
-			var formattedMessage = string.Format(message, parameters);
-
-			lock (_lock)
-			{
-				var startPosition = Messages.Count;
-				var toast = new ToastMessage(formattedMessage, startPosition, color);
+				var toast = new ToastMessage(message, startPosition, color, scale);
 				Messages.Add(toast);
 				return toast;
 			}

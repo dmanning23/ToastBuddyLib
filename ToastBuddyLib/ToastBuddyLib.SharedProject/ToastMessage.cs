@@ -32,6 +32,8 @@ namespace ToastBuddyLib
 		/// </summary>
 		public float Position { get; set; }
 
+		public float Scale { get; set; }
+
 		#endregion //Properties
 
 		/// <summary>
@@ -40,11 +42,12 @@ namespace ToastBuddyLib
 		/// <param name="text">Text.</param>
 		/// <param name="yPosition">Y position.</param>
 		/// <param name="color"></param>
-		public ToastMessage(string text, float yPosition, Color color)
+		public ToastMessage(string text, float yPosition, Color color, float scale)
 		{
 			TextMessage = text;
 			Position = yPosition;
 			Color = color;
+			Scale = scale;
 
 			State = ToastMessageState.FadingIn;
 			StateTimer = new GameClock();

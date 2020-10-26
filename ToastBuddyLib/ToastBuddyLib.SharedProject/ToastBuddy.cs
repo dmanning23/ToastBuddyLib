@@ -68,17 +68,9 @@ namespace ToastBuddyLib
 		/// </summary>
 		/// <param name="message">the text message to show</param>
 		/// <param name="color">the color to write this message</param>
-		public ToastMessage ShowMessage(string message, Color color)
+		public ToastMessage ShowMessage(string message, Color color, float scale = 1f)
 		{
-			return Toast.ShowMessage(message, color);
-		}
-
-		/// <summary>
-		/// Shows a new notification message with formatted text.
-		/// </summary>
-		public ToastMessage ShowFormattedMessage(string message, Color color, params object[] parameters)
-		{
-			return Toast.ShowFormattedMessage(message, color, parameters);
+			return Toast.ShowMessage(message, color, scale);
 		}
 
 		#endregion //Methods

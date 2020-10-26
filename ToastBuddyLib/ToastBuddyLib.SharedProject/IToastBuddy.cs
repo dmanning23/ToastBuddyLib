@@ -12,8 +12,6 @@ namespace ToastBuddyLib
 	/// </summary>
 	public interface IToastBuddy
 	{
-		ToastMessage ShowMessage(string message, Color color);
-
-		ToastMessage ShowFormattedMessage(string message, Color color, params object[] parameters);
+		ToastMessage ShowMessage(string message, Color color, float scale = 1);
 	}
 }
