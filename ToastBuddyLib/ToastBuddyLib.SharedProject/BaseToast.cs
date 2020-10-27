@@ -169,7 +169,7 @@ namespace ToastBuddyLib
 		/// <summary>
 		/// Draws the message display component.
 		/// </summary>
-		public void Draw(GameTime gameTime)
+		public void Draw()
 		{
 			lock (_lock)
 			{
@@ -180,8 +180,7 @@ namespace ToastBuddyLib
 				}
 
 				//The start position that messages will be displayed at!
-				var startPos = ((null != DisplayPosition) ? DisplayPosition() : Vector2.Zero);
-				var currentMessagePosition = startPos;
+				var currentMessagePosition = ((null != DisplayPosition) ? DisplayPosition() : Vector2.Zero);
 
 				spriteBatch.Begin(SpriteSortMode.Deferred,
 								  BlendState.NonPremultiplied,
@@ -229,7 +228,7 @@ namespace ToastBuddyLib
 									 Time);
 
 					//Compute the message position.
-					currentMessagePosition.Y = startPos.Y + (message.Position * (FontHelper.MeasureString(message.TextMessage).Y * message.Scale));
+					currentMessagePosition.Y = currentMessagePosition.Y + (FontHelper.MeasureString(message.TextMessage).Y * message.Scale);
 				}
 
 				spriteBatch.End();

@@ -60,7 +60,7 @@ namespace ToastBuddyLib
 		/// </summary>
 		public override void Draw(GameTime gameTime)
 		{
-			Toast.Draw(gameTime);
+			Toast.Draw();
 		}
 
 		/// <summary>
