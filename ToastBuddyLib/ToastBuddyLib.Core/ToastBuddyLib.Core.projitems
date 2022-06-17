@@ -6,7 +6,7 @@
     <SharedGUID>87aeac20-c309-4fa2-9b12-be0242a813ca</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>ToastBuddyLib.SharedProject</Import_RootNamespace>
+    <Import_RootNamespace>ToastBuddyLib</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ClearToast.cs" />

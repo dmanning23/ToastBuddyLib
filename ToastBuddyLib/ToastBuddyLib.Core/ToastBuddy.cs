@@ -14,6 +14,10 @@ namespace ToastBuddyLib
 
 		public BaseToastBuddy Toast { get; set; }
 
+		private string FontResource { get; set; }
+		private bool UseFontPlus { get; set; } = false;
+		private int FontSize { get; set; } = 48;
+
 		#endregion //Properties
 
 		#region Methods
@@ -29,7 +33,11 @@ namespace ToastBuddyLib
 			bool useFontPlus = false,
 			int fontSize = 48) : base(game)
 		{
-			Toast = new RollingToast(fontResource, messagePosition, getMatrixDelegate, justify, useFontPlus, fontSize);
+			FontResource = fontResource;
+			UseFontPlus = useFontPlus;
+			FontSize = fontSize;
+
+			Toast = new RollingToast(messagePosition, getMatrixDelegate, justify);
 
 			// Register ourselves to implement the IToastBuddy service.
 			game.Components.Add(this);
@@ -44,7 +52,7 @@ namespace ToastBuddyLib
 		/// </summary>
 		protected override void LoadContent()
 		{
-			Toast.LoadContent(GraphicsDevice, Game.Content);
+			Toast.LoadContent(GraphicsDevice, Game.Content, FontResource, UseFontPlus, FontSize);
 		}
 
 		/// <summary>

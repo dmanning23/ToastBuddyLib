@@ -25,12 +25,9 @@ namespace ToastBuddyLib
 		/// <summary>
 		/// Constructs a new message display component.
 		/// </summary>
-		public RollingToast(string fontResource,
-			PositionDelegate messagePosition,
+		public RollingToast(PositionDelegate messagePosition,
 			MatrixDelegate getMatrixDelegate,
-			Justify justify = Justify.Right,
-			bool useFontPlus = false,
-			int fontSize = 48) : base(fontResource, messagePosition, getMatrixDelegate, justify, useFontPlus, fontSize)
+			Justify justify = Justify.Right) : base(messagePosition, getMatrixDelegate, justify)
 		{
 			ShowTime = _defaultShowTime;
 		}

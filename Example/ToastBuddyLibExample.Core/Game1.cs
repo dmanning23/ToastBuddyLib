@@ -38,7 +38,7 @@ namespace ToastBuddyLibExample
 			messages = new ToastBuddy(this, "Fonts\\ArialBlack48", UpperRight, Resolution.TransformationMatrix, Justify.Right);
 			//var rollingToast = messages.Toast as RollingToast;
 			//rollingToast.ShowTime = 1.0f;
-			messages.Toast = new ClearToast("Fonts\\ArialBlack48", UpperRight, Resolution.TransformationMatrix, Justify.Right);
+			messages.Toast = new ClearToast(UpperRight, Resolution.TransformationMatrix, Justify.Right);
 
 			controller = new ControllerWrapper(0);
 			Mappings.UseKeyboard[0] = true;
@@ -95,7 +95,7 @@ namespace ToastBuddyLibExample
 				if (controller.CheckKeystroke(i))
 				{
 					//pop up a message
-					messageDisplay.ShowFormattedMessage("Pressed {0}", Color.Yellow, i.ToString());
+					messageDisplay.ShowMessage($"Pressed {i.ToString()}", Color.Yellow);
 				}
 			}
 

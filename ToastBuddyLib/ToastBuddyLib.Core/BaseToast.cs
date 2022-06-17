@@ -34,11 +34,6 @@ namespace ToastBuddyLib
 		private readonly PositionDelegate DisplayPosition;
 
 		/// <summary>
-		/// The name of the font to use.
-		/// </summary>
-		private readonly string FontName;
-
-		/// <summary>
 		/// A callback function used to get a matrix to scale/rotate toast messages
 		/// </summary>
 		private readonly MatrixDelegate GetMatrix;
@@ -53,14 +48,10 @@ namespace ToastBuddyLib
 		/// </summary>
 		private readonly object _lock = new object();
 
-		private bool UseFontPlus { get; set; }
-
-		private int FontSize { get; set; }
-
 		/// <summary>
 		/// The font helper used to write the text with a little shadow
 		/// </summary>
-		private ShadowTextBuddy FontHelper { get; set; }
+		private IFontBuddy Font { get; set; }
 
 		/// <summary>
 		/// The sprite batch used to write messages
@@ -82,20 +73,14 @@ namespace ToastBuddyLib
 		/// <summary>
 		/// Constructs a new message display component.
 		/// </summary>
-		public BaseToastBuddy(string fontResource,
-			PositionDelegate messagePosition,
+		public BaseToastBuddy(PositionDelegate messagePosition,
 			MatrixDelegate getMatrixDelegate,
-			Justify justify = Justify.Right,
-			bool useFontPlus = false,
-			int fontSize = 48) : base()
+			Justify justify = Justify.Right) : base()
 		{
 			//grab those other items
-			FontName = fontResource;
 			DisplayPosition = messagePosition;
 			GetMatrix = getMatrixDelegate;
 			Justify = justify;
-			UseFontPlus = useFontPlus;
-			FontSize = fontSize;
 
 			FadeInTime = _defaultFadeInTime;
 			FadeOutTime = _defaultFadeOutTime;
@@ -107,16 +92,26 @@ namespace ToastBuddyLib
 		/// <summary>
 		/// Load graphics content for the message display.
 		/// </summary>
-		public void LoadContent(GraphicsDevice graphicsDevice, ContentManager content)
+		public void LoadContent(GraphicsDevice graphicsDevice, 
+			ContentManager content,
+			string fontResource,
+			bool useFontPlus = false,
+			int fontSize = 48)
 		{
 			spriteBatch = new SpriteBatch(graphicsDevice);
-			FontHelper = new ShadowTextBuddy
+			Font = new ShadowTextBuddy
 			{
 				ShadowOffset = new Vector2(0.0f, 3.0f),
 				ShadowSize = 1.0f,
 			};
 
-			FontHelper.LoadContent(content, FontName, UseFontPlus, FontSize);
+			Font.LoadContent(content, fontResource, useFontPlus, fontSize);
+		}
+
+		public void LoadContent(GraphicsDevice graphicsDevice, IFontBuddy font)
+		{
+			spriteBatch = new SpriteBatch(graphicsDevice);
+			Font = font;
 		}
 
 		/// <summary>
@@ -215,11 +210,16 @@ namespace ToastBuddyLib
 					var foregroundColor = message.Color;
 					foregroundColor.A = alpha;
 
-					// Draw the message text, with a drop shadow.
-					var shadowColor = Color.Black;
-					shadowColor.A = alpha;
-					FontHelper.ShadowColor = shadowColor;
-					FontHelper.Write(message.TextMessage,
+					//Update the drop shadow
+					if (Font is ShadowTextBuddy shadowTextBuddy)
+					{
+						var shadowColor = Color.Black;
+						shadowColor.A = alpha;
+						shadowTextBuddy.ShadowColor = shadowColor;
+					}
+
+					// Draw the message text
+					Font.Write(message.TextMessage,
 									 currentMessagePosition,
 									 Justify,
 									 message.Scale,
@@ -228,7 +228,7 @@ namespace ToastBuddyLib
 									 Time);
 
 					//Compute the message position.
-					currentMessagePosition.Y = currentMessagePosition.Y + (FontHelper.MeasureString(message.TextMessage).Y * message.Scale);
+					currentMessagePosition.Y = currentMessagePosition.Y + (Font.MeasureString(message.TextMessage).Y * message.Scale);
 				}
 
 				spriteBatch.End();
