@@ -128,7 +128,6 @@ namespace ToastBuddyLibExample
 
 			spriteBatch.Begin();
 
-			//TODO: Add your drawing code here
 			instructionFont.Write("Press any direction on the controller to pop up messages",
 								  new Vector2(Resolution.TitleSafeArea.Left, Resolution.TitleSafeArea.Top),
 								  Justify.Left,
