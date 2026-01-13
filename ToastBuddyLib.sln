@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToastBuddyLib", "ToastBuddyLib\ToastBuddyLib.csproj", "{12BAC4F3-9B50-492B-95E5-E35103FA1C1A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToastBuddyLibExample", "ToastBuddyLibExample\ToastBuddyLibExample.csproj", "{30A3FD5C-DC45-42DB-8DCF-F99B5A6F46B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,18 @@ Global
 		{12BAC4F3-9B50-492B-95E5-E35103FA1C1A}.Release|x64.Build.0 = Release|Any CPU
 		{12BAC4F3-9B50-492B-95E5-E35103FA1C1A}.Release|x86.ActiveCfg = Release|Any CPU
 		{12BAC4F3-9B50-492B-95E5-E35103FA1C1A}.Release|x86.Build.0 = Release|Any CPU
+		{30A3FD5C-DC45-42DB-8DCF-F99B5A6F46B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30A3FD5C-DC45-42DB-8DCF-F99B5A6F46B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30A3FD5C-DC45-42DB-8DCF-F99B5A6F46B3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{30A3FD5C-DC45-42DB-8DCF-F99B5A6F46B3}.Debug|x64.Build.0 = Debug|Any CPU
+		{30A3FD5C-DC45-42DB-8DCF-F99B5A6F46B3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{30A3FD5C-DC45-42DB-8DCF-F99B5A6F46B3}.Debug|x86.Build.0 = Debug|Any CPU
+		{30A3FD5C-DC45-42DB-8DCF-F99B5A6F46B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30A3FD5C-DC45-42DB-8DCF-F99B5A6F46B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30A3FD5C-DC45-42DB-8DCF-F99B5A6F46B3}.Release|x64.ActiveCfg = Release|Any CPU
+		{30A3FD5C-DC45-42DB-8DCF-F99B5A6F46B3}.Release|x64.Build.0 = Release|Any CPU
+		{30A3FD5C-DC45-42DB-8DCF-F99B5A6F46B3}.Release|x86.ActiveCfg = Release|Any CPU
+		{30A3FD5C-DC45-42DB-8DCF-F99B5A6F46B3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
